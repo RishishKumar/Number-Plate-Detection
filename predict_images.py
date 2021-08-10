@@ -23,13 +23,13 @@ class DetectVehicleNumberPlate:
             # initialize the graph definition
             self.graphDef = tf.GraphDef()
 
-            # load the graph from disk
+            # load the graph from given disk
             with tf.gfile.GFile(self.modelArg, "rb") as f:
                 self.serializedGraph = f.read()
                 self.graphDef.ParseFromString(self.serializedGraph)
                 tf.import_graph_def(self.graphDef, name="")
 
-        # load the class labels from disk
+        # load the class labels from given disk
         self.labelMap = label_map_util.load_labelmap(self.labelsArg)
         self.categories = label_map_util.convert_label_map_to_categories(
             self.labelMap, max_num_classes=self.num_classesArg,
